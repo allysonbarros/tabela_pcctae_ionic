@@ -18,7 +18,7 @@ app.controller('SimulacaoController', function($scope, $http, $filter) {
   $http.get('/initial_data.json').success(function(data) {
     $scope.configuracao_inicial = data;
 
-    $scope.ano_base = $scope.configuracao_inicial.ano_base[3];
+    $scope.ano_base = $scope.configuracao_inicial.ano_base[0];
     $scope.qualificacao = $scope.configuracao_inicial.qualificacao[7];
     $scope.relacao = $scope.configuracao_inicial.relacao[0];
     $scope.classe = $scope.configuracao_inicial.classe[0];
@@ -26,6 +26,8 @@ app.controller('SimulacaoController', function($scope, $http, $filter) {
     $scope.posicao_tabela = null;
 
     $scope.getPosicaoTabela($scope.classe, $scope.nivel);
+    $scope.getVencimentoBasico($scope.ano_base, $scope.posicao_tabela);
+    $scope.getIncentivoQualificacao($scope.qualificacao, $scope.relacao, $scope.vencimento_basico);
   }).error(function() {
     alert('Ocorreu um erro ao carregar as configurações do sistema.');
   });
@@ -41,5 +43,31 @@ app.controller('SimulacaoController', function($scope, $http, $filter) {
         }
       });
     });
+  };
+
+  $scope.getVencimentoBasico = function(ano_base, posicao_tabela) {
+    $scope.vencimento_basico = null;
+    tabela_remuneracao = $filter('filter')($scope.configuracao_inicial.tabela_remuneracao, {"ano_base":ano_base.texto})[0].valores;
+    $scope.vencimento_basico = $filter('filter')(tabela_remuneracao, {"posicao":posicao_tabela.texto})[0];
+  }
+
+  $scope.getIncentivoQualificacao = function(qualificacao, relacao, vencimento_basico) {
+    $scope.incentivo_qualificacao = null;
+
+    if (qualificacao.percentual_direta != 0.0 || qualificacao.percentual_indireta != 0.0) {
+      $scope.incentivo_qualificacao = vencimento_basico.valor * (relacao.valor == 1 ? qualificacao.percentual_direta / 100.0 : qualificacao.percentual_indireta / 100.0);
+    } else {
+      $scope.incentivo_qualificacao = 0.0;
+    }
+  };
+
+  $scope.getValorPericusolidade = function(periculosidade, vencimento_basico) {
+    $scope.valor_periculosidade = null;
+
+    if (periculosidade != null) {
+      $scope.valor_periculosidade = vencimento_basico.valor * (periculosidade.percentual / 100);
+    } else {
+      $scope.valor_periculosidade = 0.0;
+    }
   };
 });

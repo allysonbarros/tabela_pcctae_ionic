@@ -857,6 +857,222 @@
     }
   ],
 
+  "tabela_remuneracao": [
+    {
+      "ano_base": "01/01/2014",
+      "valores": [
+        {
+            "valor": 1086.32,
+            "posicao": "P01"
+        },
+        {
+            "valor": 1126.51,
+            "posicao": "P02"
+        },
+        {
+            "valor": 1168.19,
+            "posicao": "P03"
+        },
+        {
+            "valor": 1211.42,
+            "posicao": "P04"
+        },
+        {
+            "valor": 1256.24,
+            "posicao": "P05"
+        },
+        {
+            "valor": 1302.72,
+            "posicao": "P06"
+        },
+        {
+            "valor": 1350.92,
+            "posicao": "P07"
+        },
+        {
+            "valor": 1400.91,
+            "posicao": "P08"
+        },
+        {
+            "valor": 1452.74,
+            "posicao": "P09"
+        },
+        {
+            "valor": 1506.49,
+            "posicao": "P10"
+        },
+        {
+            "valor": 1562.23,
+            "posicao": "P11"
+        },
+        {
+            "valor": 1620.03,
+            "posicao": "P12"
+        },
+        {
+            "valor": 1679.97,
+            "posicao": "P13"
+        },
+        {
+            "valor": 1742.13,
+            "posicao": "P14"
+        },
+        {
+            "valor": 1806.59,
+            "posicao": "P15"
+        },
+        {
+            "valor": 1873.44,
+            "posicao": "P16"
+        },
+        {
+            "valor": 1942.75,
+            "posicao": "P17"
+        },
+        {
+            "valor": 2014.64,
+            "posicao": "P18"
+        },
+        {
+            "valor": 2089.18,
+            "posicao": "P19"
+        },
+        {
+            "valor": 2166.48,
+            "posicao": "P20"
+        },
+        {
+            "valor": 2246.64,
+            "posicao": "P21"
+        },
+        {
+            "valor": 2329.76,
+            "posicao": "P22"
+        },
+        {
+            "valor": 2415.96,
+            "posicao": "P23"
+        },
+        {
+            "valor": 2505.35,
+            "posicao": "P24"
+        },
+        {
+            "valor": 2598.05,
+            "posicao": "P25"
+        },
+        {
+            "valor": 2694.18,
+            "posicao": "P26"
+        },
+        {
+            "valor": 2793.86,
+            "posicao": "P27"
+        },
+        {
+            "valor": 2897.24,
+            "posicao": "P28"
+        },
+        {
+            "valor": 3004.43,
+            "posicao": "P29"
+        },
+        {
+            "valor": 3115.6,
+            "posicao": "P30"
+        },
+        {
+            "valor": 3230.88,
+            "posicao": "P31"
+        },
+        {
+            "valor": 3350.42,
+            "posicao": "P32"
+        },
+        {
+            "valor": 3474.38,
+            "posicao": "P33"
+        },
+        {
+            "valor": 3602.94,
+            "posicao": "P34"
+        },
+        {
+            "valor": 3736.24,
+            "posicao": "P35"
+        },
+        {
+            "valor": 3874.49,
+            "posicao": "P36"
+        },
+        {
+            "valor": 4017.84,
+            "posicao": "P37"
+        },
+        {
+            "valor": 4166.5,
+            "posicao": "P38"
+        },
+        {
+            "valor": 4320.66,
+            "posicao": "P39"
+        },
+        {
+            "valor": 4480.53,
+            "posicao": "P40"
+        },
+        {
+            "valor": 4646.31,
+            "posicao": "P41"
+        },
+        {
+            "valor": 4818.22,
+            "posicao": "P42"
+        },
+        {
+            "valor": 4996.49,
+            "posicao": "P43"
+        },
+        {
+            "valor": 5181.36,
+            "posicao": "P44"
+        },
+        {
+            "valor": 5373.07,
+            "posicao": "P45"
+        },
+        {
+            "valor": 5571.88,
+            "posicao": "P46"
+        },
+        {
+            "valor": 5778.04,
+            "posicao": "P47"
+        },
+        {
+            "valor": 5991.83,
+            "posicao": "P48"
+        },
+        {
+            "valor": 6213.52,
+            "posicao": "P49"
+        }
+      ]
+    },
+    {
+      "ano_base": "01/03/2014",
+      "valores": []
+    },
+    {
+      "ano_base": "01/01/2015",
+      "valores": []
+    },
+    {
+      "ano_base": "01/03/2015",
+      "valores": []
+    }
+  ],
+
   "gratificacao": [
     {
       "valor": 5745.57,
@@ -943,6 +1159,18 @@
       "desconto": 11.0
     }
   ],
+
+  "regime_previdencia": [
+    {
+      "valor": 1,
+      "texto": "Velho"
+    },
+    {
+      "valor": 2,
+      "texto": "Novo"
+    }
+  ],
+
   "aliquota_irpf": [
     {
       "remuneracao_ate": 1787.77,

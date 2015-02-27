@@ -34,7 +34,7 @@
             <div class="input-label">
               Ano Base:
             </div>
-            <select ng-model="ano_base" ng-options="ano_base.texto for ano_base in configuracao_inicial.ano_base">
+            <select ng-model="ano_base" ng-options="ano_base.texto for ano_base in configuracao_inicial.ano_base" ng-change="getVencimentoBasico(ano_base, posicao_tabela)">
             </select>
           </label>
 
@@ -43,7 +43,7 @@
               Qualificação:
             </div>
           
-            <select ng-model="qualificacao" ng-options="qualificacao.texto for qualificacao in configuracao_inicial.qualificacao">
+            <select ng-model="qualificacao" ng-options="qualificacao.texto for qualificacao in configuracao_inicial.qualificacao" ng-change="getIncentivoQualificacao(qualificacao, relacao, vencimento_basico)">
             </select>
           </label>
 
@@ -51,7 +51,7 @@
             <div class="input-label">
               Relação:
             </div>
-            <select ng-model="relacao" ng-options="relacao.texto for relacao in configuracao_inicial.relacao">
+            <select ng-model="relacao" ng-options="relacao.texto for relacao in configuracao_inicial.relacao" ng-change="getIncentivoQualificacao(qualificacao, relacao, vencimento_basico)">
             </select>
           </label>
 
@@ -64,14 +64,14 @@
             <div class="input-label">
               Classe:
             </div>
-            <select ng-model="classe" ng-options="classe.texto for classe in configuracao_inicial.classe" ng-change="getPosicaoTabela(classe, nivel)">
+            <select ng-model="classe" ng-options="classe.texto for classe in configuracao_inicial.classe" ng-change="getPosicaoTabela(classe, nivel); getVencimentoBasico(ano_base, posicao_tabela); getIncentivoQualificacao(qualificacao, relacao, vencimento_basico);">
             </select>
           </label>
           <label class="item item-input item-select">
             <div class="input-label">
               Nível:
             </div>
-            <select ng-model="nivel" ng-options="nivel.valor for nivel in configuracao_inicial.nivel" ng-change="getPosicaoTabela(classe, nivel)">
+            <select ng-model="nivel" ng-options="nivel.valor for nivel in configuracao_inicial.nivel" ng-change="getPosicaoTabela(classe, nivel); getVencimentoBasico(ano_base, posicao_tabela); getIncentivoQualificacao(qualificacao, relacao, vencimento_basico);">
             </select>
           </label>
           <label class="item item-input">
@@ -80,11 +80,11 @@
           </label>
           <label class="item item-input">
             <span class="input-label">Vencimento Básico:</span>
-            <input type="text" value="{{ 0 | currency }}" disabled="disabled" style="text-align: right; font-weight:bold; background:#fff;" />
+            <input type="text" value="{{ vencimento_basico.valor | currency }}" disabled="disabled" style="text-align: right; font-weight:bold; background:#fff;" />
           </label>
           <label class="item item-input">
             <span class="input-label">Incentivo a Qualif.:</span>
-            <input type="text" value="{{ 0 | currency }}" disabled="disabled" style="text-align: right; font-weight:bold; background:#fff;" />
+            <input type="text" value="{{ incentivo_qualificacao | currency }}" disabled="disabled" style="text-align: right; font-weight:bold; background:#fff;" />
           </label>
           <label class="item item-input">
             <span class="input-label">Auxílio  Alimentação:</span>
@@ -108,7 +108,7 @@
             <div class="input-label">
               Adicional Peric./Ins.
             </div>
-            <select ng-model="periculosidade" ng-options="periculosidade.texto for periculosidade in configuracao_inicial.periculosidade_insalubridade">
+            <select ng-model="periculosidade" ng-options="periculosidade.texto for periculosidade in configuracao_inicial.periculosidade_insalubridade" ng-change="getValorPericusolidade(periculosidade, vencimento_basico);">
               <option value=""></option>
             </select>
           </label>
@@ -116,7 +116,7 @@
             <div class="input-label">
               Valor do Adic. Peric./Ins.
             </div>
-            <input type="text" value="{{ 0 | currency }}" disabled="disabled" style="text-align: right; font-weight:bold; background:#fff;" />
+            <input type="text" value="{{ valor_periculosidade | currency }}" disabled="disabled" style="text-align: right; font-weight:bold; background:#fff;" />
           </label>
         </div>
       </ion-content>
