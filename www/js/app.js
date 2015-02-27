@@ -1,4 +1,4 @@
-var app = angular.module('starter', ['ionic']);
+var app = angular.module('starter', ['ionic', 'ui.utils.masks']);
 
 app.run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {
@@ -23,11 +23,18 @@ app.controller('SimulacaoController', function($scope, $http, $filter) {
     $scope.relacao = $scope.configuracao_inicial.relacao[0];
     $scope.classe = $scope.configuracao_inicial.classe[0];
     $scope.nivel = $scope.configuracao_inicial.nivel[0];
-    $scope.posicao_tabela = null;
+    $scope.auxilio_alimentacao = $scope.configuracao_inicial.auxilio_alimentacao;
+    $scope.auxilio_pre_escolar = 0;
+    $scope.valor_auxilio_pre_escolar = 0.0;
+    $scope.auxilio_transporte = 0.0;
+    $scope.outras_gratificacoes = 0.0;
+    $scope.saude_suplementar = 0.0;
+    $scope.salario_bruto = 0.0;
 
     $scope.getPosicaoTabela($scope.classe, $scope.nivel);
     $scope.getVencimentoBasico($scope.ano_base, $scope.posicao_tabela);
     $scope.getIncentivoQualificacao($scope.qualificacao, $scope.relacao, $scope.vencimento_basico);
+    $scope.getValorSalarioBruto($scope.vencimento_basico.valor, $scope.incentivo_qualificacao, $scope.auxilio_alimentacao, $scope.gratificacao, $scope.valor_periculosidade, $scope.valor_auxilio_pre_escolar, $scope.auxilio_transporte, $scope.outras_gratificacoes, $scope.saude_suplementar);
   }).error(function() {
     alert('Ocorreu um erro ao carregar as configurações do sistema.');
   });
@@ -68,6 +75,28 @@ app.controller('SimulacaoController', function($scope, $http, $filter) {
       $scope.valor_periculosidade = vencimento_basico.valor * (periculosidade.percentual / 100);
     } else {
       $scope.valor_periculosidade = 0.0;
+    }
+  };
+
+  $scope.getValorAuxilioPreEscolar = function(auxilio_pre_escolar) {
+    $scope.valor_auxilio_pre_escolar = null;
+
+    if (auxilio_pre_escolar != null) {
+      $scope.valor_auxilio_pre_escolar = auxilio_pre_escolar * $scope.configuracao_inicial.auxilio_pre_escolar;
+    } else {
+      $scope.valor_auxilio_pre_escolar = 0.0;
+    }
+  };
+
+  $scope.getValorSalarioBruto = function(vencimento_basico, incentivo_qualificacao, auxilio_alimentacao, gratificacao, valor_periculosidade, valor_auxilio_pre_escolar, auxilio_transporte, outras_gratificacoes, saude_suplementar) {
+    $scope.salario_bruto = vencimento_basico + incentivo_qualificacao + auxilio_alimentacao + valor_auxilio_pre_escolar + auxilio_transporte + outras_gratificacoes + saude_suplementar;
+
+    if (gratificacao != null) {
+      $scope.salario_bruto += gratificacao.valor;
+    }
+
+    if (valor_periculosidade != null) {
+      $scope.salario_bruto += valor_periculosidade;
     }
   };
 });

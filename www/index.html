@@ -19,6 +19,7 @@
     <script src="cordova.js"></script>
 
     <!-- your app's js -->
+    <script src="js/masks.min.js"></script>
     <script src="js/pt-br.js"></script>
     <script src="js/app.js"></script>
   </head>
@@ -34,7 +35,7 @@
             <div class="input-label">
               Ano Base:
             </div>
-            <select ng-model="ano_base" ng-options="ano_base.texto for ano_base in configuracao_inicial.ano_base" ng-change="getVencimentoBasico(ano_base, posicao_tabela)">
+            <select ng-model="ano_base" ng-options="ano_base.texto for ano_base in configuracao_inicial.ano_base" ng-change="getVencimentoBasico(ano_base, posicao_tabela); getValorSalarioBruto(vencimento_basico.valor, incentivo_qualificacao, auxilio_alimentacao, gratificacao, valor_periculosidade, valor_auxilio_pre_escolar, auxilio_transporte, outras_gratificacoes, saude_suplementar);">
             </select>
           </label>
 
@@ -43,7 +44,7 @@
               Qualificação:
             </div>
           
-            <select ng-model="qualificacao" ng-options="qualificacao.texto for qualificacao in configuracao_inicial.qualificacao" ng-change="getIncentivoQualificacao(qualificacao, relacao, vencimento_basico)">
+            <select ng-model="qualificacao" ng-options="qualificacao.texto for qualificacao in configuracao_inicial.qualificacao" ng-change="getIncentivoQualificacao(qualificacao, relacao, vencimento_basico); getValorSalarioBruto(vencimento_basico.valor, incentivo_qualificacao, auxilio_alimentacao, gratificacao, valor_periculosidade, valor_auxilio_pre_escolar, auxilio_transporte, outras_gratificacoes, saude_suplementar);">
             </select>
           </label>
 
@@ -51,7 +52,7 @@
             <div class="input-label">
               Relação:
             </div>
-            <select ng-model="relacao" ng-options="relacao.texto for relacao in configuracao_inicial.relacao" ng-change="getIncentivoQualificacao(qualificacao, relacao, vencimento_basico)">
+            <select ng-model="relacao" ng-options="relacao.texto for relacao in configuracao_inicial.relacao" ng-change="getIncentivoQualificacao(qualificacao, relacao, vencimento_basico); getValorSalarioBruto(vencimento_basico.valor, incentivo_qualificacao, auxilio_alimentacao, gratificacao, valor_periculosidade, valor_auxilio_pre_escolar, auxilio_transporte, outras_gratificacoes, saude_suplementar);">
             </select>
           </label>
 
@@ -64,14 +65,14 @@
             <div class="input-label">
               Classe:
             </div>
-            <select ng-model="classe" ng-options="classe.texto for classe in configuracao_inicial.classe" ng-change="getPosicaoTabela(classe, nivel); getVencimentoBasico(ano_base, posicao_tabela); getIncentivoQualificacao(qualificacao, relacao, vencimento_basico);">
+            <select ng-model="classe" ng-options="classe.texto for classe in configuracao_inicial.classe" ng-change="getPosicaoTabela(classe, nivel); getVencimentoBasico(ano_base, posicao_tabela); getIncentivoQualificacao(qualificacao, relacao, vencimento_basico); getValorSalarioBruto(vencimento_basico.valor, incentivo_qualificacao, auxilio_alimentacao, gratificacao, valor_periculosidade, valor_auxilio_pre_escolar, auxilio_transporte, outras_gratificacoes, saude_suplementar);">
             </select>
           </label>
           <label class="item item-input item-select">
             <div class="input-label">
               Nível:
             </div>
-            <select ng-model="nivel" ng-options="nivel.valor for nivel in configuracao_inicial.nivel" ng-change="getPosicaoTabela(classe, nivel); getVencimentoBasico(ano_base, posicao_tabela); getIncentivoQualificacao(qualificacao, relacao, vencimento_basico);">
+            <select ng-model="nivel" ng-options="nivel.valor for nivel in configuracao_inicial.nivel" ng-change="getPosicaoTabela(classe, nivel); getVencimentoBasico(ano_base, posicao_tabela); getIncentivoQualificacao(qualificacao, relacao, vencimento_basico); getValorSalarioBruto(vencimento_basico.valor, incentivo_qualificacao, auxilio_alimentacao, gratificacao, valor_periculosidade, valor_auxilio_pre_escolar, auxilio_transporte, outras_gratificacoes, saude_suplementar);">
             </select>
           </label>
           <label class="item item-input">
@@ -88,13 +89,13 @@
           </label>
           <label class="item item-input">
             <span class="input-label">Auxílio  Alimentação:</span>
-            <input type="text" value="{{ configuracao_inicial.auxilio_alimentacao | currency }}" disabled="disabled" style="text-align: right; font-weight:bold; background:#fff;"/>
+            <input type="text" value="{{ auxilio_alimentacao | currency }}" style="text-align: right; background:#fff;" />
           </label>
           <label class="item item-input item-select">
             <div class="input-label">
               Gratificação:
             </div>
-            <select ng-model="gratificacao" ng-options="gratificacao.texto for gratificacao in configuracao_inicial.gratificacao">
+            <select ng-model="gratificacao" ng-options="gratificacao.texto for gratificacao in configuracao_inicial.gratificacao" ng-change="getValorSalarioBruto(vencimento_basico.valor, incentivo_qualificacao, auxilio_alimentacao, gratificacao, valor_periculosidade, valor_auxilio_pre_escolar, auxilio_transporte, outras_gratificacoes, saude_suplementar);">
               <option value=""></option>
             </select>
           </label>
@@ -108,7 +109,7 @@
             <div class="input-label">
               Adicional Peric./Ins.
             </div>
-            <select ng-model="periculosidade" ng-options="periculosidade.texto for periculosidade in configuracao_inicial.periculosidade_insalubridade" ng-change="getValorPericusolidade(periculosidade, vencimento_basico);">
+            <select ng-model="periculosidade" ng-options="periculosidade.texto for periculosidade in configuracao_inicial.periculosidade_insalubridade" ng-change="getValorPericusolidade(periculosidade, vencimento_basico); getValorSalarioBruto(vencimento_basico.valor, incentivo_qualificacao, auxilio_alimentacao, gratificacao, valor_periculosidade, valor_auxilio_pre_escolar, auxilio_transporte, outras_gratificacoes, saude_suplementar);">
               <option value=""></option>
             </select>
           </label>
@@ -117,6 +118,42 @@
               Valor do Adic. Peric./Ins.
             </div>
             <input type="text" value="{{ valor_periculosidade | currency }}" disabled="disabled" style="text-align: right; font-weight:bold; background:#fff;" />
+          </label>
+          <label class="item item-input">
+            <div class="input-label">
+              Auxílio Pré-Escolar
+            </div>
+            <input type="text" ng-model="auxilio_pre_escolar" style="text-align: right;" ng-change="getValorAuxilioPreEscolar(auxilio_pre_escolar); getValorSalarioBruto(vencimento_basico.valor, incentivo_qualificacao, auxilio_alimentacao, gratificacao, valor_periculosidade, valor_auxilio_pre_escolar, auxilio_transporte, outras_gratificacoes, saude_suplementar);"/>
+          </label>
+          <label class="item item-input" ng-show="valor_auxilio_pre_escolar">
+            <div class="input-label">
+              Valor do Aux. Pré-Escolar
+            </div>
+            <input type="text" value="{{ valor_auxilio_pre_escolar | currency }}" disabled="disabled" style="text-align: right; font-weight:bold; background:#fff;" />
+          </label>
+          <label class="item item-input">
+            <div class="input-label">
+              Auxílio Transporte
+            </div>
+            <input type="text" ng-model="auxilio_transporte" style="text-align: right;" ng-change="getValorSalarioBruto(vencimento_basico.valor, incentivo_qualificacao, auxilio_alimentacao, gratificacao, valor_periculosidade, valor_auxilio_pre_escolar, auxilio_transporte, outras_gratificacoes, saude_suplementar);" ui-money-mask/>
+          </label>
+          <label class="item item-input">
+            <div class="input-label">
+              Outras Gratificações
+            </div>
+            <input type="text" ng-model="outras_gratificacoes" style="text-align: right;" ng-change="getValorSalarioBruto(vencimento_basico.valor, incentivo_qualificacao, auxilio_alimentacao, gratificacao, valor_periculosidade, valor_auxilio_pre_escolar, auxilio_transporte, outras_gratificacoes, saude_suplementar);" ui-money-mask/>
+          </label>
+          <label class="item item-input">
+            <div class="input-label">
+              Saúde Suplementar
+            </div>
+            <input type="text" ng-model="saude_suplementar" style="text-align: right;" ng-change="getValorSalarioBruto(vencimento_basico.valor, incentivo_qualificacao, auxilio_alimentacao, gratificacao, valor_periculosidade, valor_auxilio_pre_escolar, auxilio_transporte, outras_gratificacoes, saude_suplementar);" ui-money-mask/>
+          </label>
+          <label class="item item-input">
+            <div class="input-label positive">
+              <strong>Salário Bruto</strong>
+            </div>
+            <input type="text" value="{{ salario_bruto | currency }}" disabled="disabled" style="text-align: right; font-weight:bold; background:#fff; color: #387ef5;" />
           </label>
         </div>
       </ion-content>
